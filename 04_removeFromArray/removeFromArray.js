@@ -1,10 +1,12 @@
-const removeFromArray = function(list, argument) {
-    let indexOfarg = 0;
-    while (indexOfarg !== -1) {
-        indexOfarg = list.indexOf(argument);
-        list.splice(indexOfarg, 1);
+const removeFromArray = function(SourceArray, ...theArgs) {
+    let result = [];
+    for (let i = 0; i < SourceArray.length; i++) {
+        let element = SourceArray[i];
+        if (! theArgs.includes(element)) {
+            result.push(element);
+        }
     }
-    return list;
+    return result;
 
 };
 
