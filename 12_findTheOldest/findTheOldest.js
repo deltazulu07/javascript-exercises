@@ -1,18 +1,21 @@
 const findTheOldest = function(arrOfPeople) {
     //Given an array of objects representing people with a birth and death year, return the oldest person object
 
-    //map array of people to array of age
-    const arrayOfAge = arrOfPeople.map((person) => {
-        return ('yearOfDeath' in person) ? //ternary operator
-                person.yearOfDeath - person.yearOfBirth :
-                new Date().getFullYear() - person.yearOfBirth;
-    });
+    const oldest = arrOfPeople.reduce((oldestPerson, currentPerson) => {
 
-    //find largest num in age array and its corresponding index
-    const indexOfOldest = arrayOfAge.indexOf(Math.max(...arrayOfAge));
+        function CalcAge(person) {
+            return ('yearOfDeath' in person) ? //ternary operator
+                    person.yearOfDeath - person.yearOfBirth :
+                    new Date().getFullYear() - person.yearOfBirth;
+        }
 
-    //return person by that index
-    return arrOfPeople[indexOfOldest];
+        if (CalcAge(currentPerson) > CalcAge(oldestPerson)) {
+            oldestPerson = currentPerson;
+        }
+        return oldestPerson;
+    }, arrOfPeople[0]);
+
+    return oldest;
 }
 
 // Do not edit below this line
